@@ -3667,6 +3667,35 @@ I:SetAttribute("UID",ac)
 self.SCREENGUI_UID=ac
 I:ClearAllChildren()
 
+do
+    local STAR_COLOR = Color3.fromRGB(210, 248, 254)
+    for _ = 1, 120 do
+        local size = math.random(2, 4)
+        local star = Instance.new("Frame")
+        star.Size = UDim2.fromOffset(size, size)
+        star.Position = UDim2.fromScale(math.random(), math.random())
+        star.BackgroundColor3 = STAR_COLOR
+        star.BackgroundTransparency = math.random(2, 7) / 10
+        star.BorderSizePixel = 0
+        star.ZIndex = 1
+        star.Parent = I
+        Instance.new("UICorner", star).CornerRadius = UDim.new(1, 0)
+        task.spawn(function()
+            while star and star.Parent do
+                local dur = math.random(25, 55) / 10
+                j:Create(star, TweenInfo.new(dur, Enum.EasingStyle.Sine), {
+                    Position = UDim2.fromScale(
+                        math.clamp(star.Position.X.Scale + math.random(-12, 12) / 100, 0, 1),
+                        math.clamp(star.Position.Y.Scale + math.random(-12, 12) / 100, 0, 1)
+                    ),
+                    BackgroundTransparency = math.random(2, 8) / 10
+                }):Play()
+                task.wait(dur)
+            end
+        end)
+    end
+end
+
 local ad=E("UIScale","Scale",I,{
 Scale=P(1)
 })
